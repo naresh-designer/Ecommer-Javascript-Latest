@@ -22,8 +22,8 @@ cartCloseElm.addEventListener("click", () => {
 });
 
 // Show Data................................................
-const showData = () => {
-  const html = allProducts.map((curProduct) => {
+const showData = (data) => {
+  const html = data.map((curProduct) => {
     if (!allFilterList.includes(curProduct.category)) {
       filterListElm.innerHTML += `
             <li><lable><input type="checkbox" value="${curProduct.category}">${curProduct.category}</lable></li>
@@ -229,6 +229,20 @@ const productDetails = () => {
 };
 productDetails();
 
+// Get Data.................................................
+const getData = async () => {
+  try {
+    const res = await fetch(productApi);
+    const data = await res.json();
+    allProducts = data;
+    showData(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getData();
+
 searchInputElm.addEventListener("input", (e) => {
   const value = e.target.value.toLowerCase();
   console.log(value);
@@ -237,17 +251,3 @@ searchInputElm.addEventListener("input", (e) => {
   });
   showData(filterSearch);
 });
-
-// Get Data.................................................
-const getData = async () => {
-  try {
-    const res = await fetch(productApi);
-    const data = await res.json();
-    allProducts = data;
-    showData();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-getData();
