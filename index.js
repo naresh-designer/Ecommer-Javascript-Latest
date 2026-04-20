@@ -245,7 +245,6 @@ getData();
 
 searchInputElm.addEventListener("input", (e) => {
   const value = e.target.value.toLowerCase();
-  console.log(value);
   const filterSearch = allProducts.filter((curElm) => {
     return curElm.category.toLowerCase().includes(value.toLowerCase());
   });
